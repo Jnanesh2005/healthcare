@@ -1,0 +1,60 @@
+{% extends 'tracker/base.html' %}
+{% block content %}
+<div class="container mt-4">
+
+  <div class="card shadow p-4 mb-4">
+    <h2>Welcome to the Health Monitor App</h2>
+
+    {% if user.is_authenticated %}
+      <p class="lead">Hello, {{ user.get_full_name|default:user.username }}! Here's your dashboard overview:</p>
+      <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary me-2">Dashboard</a>
+        <a href="{% url 'submit_vitals' %}" class="btn btn-success me-2">Submit Vitals</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
+    {% else %}
+      <p class="lead">Track your health vitals with ease. Log in or register to get started.</p>
+      <div class="mb-3">
+        <a href="{% url 'login' %}" class="btn btn-success me-2">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-info">Register</a>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if user.is_authenticated %}
+    {% if vitals %}
+    <div class="card shadow p-4">
+      <h4>Your Vitals History</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-3">
+          <thead class="table-light">
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Temperature (°C)</th>
+              <th>Heart Rate (bpm)</th>
+              <th>SpO₂ (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in vitals %}
+            <tr>
+              <td>{{ record.recorded_at|date:"Y-m-d" }}</td>
+              <td>{{ record.recorded_at|date:"H:i:s" }}</td>
+              <td>{{ record.temperature }}</td>
+              <td>{{ record.heart_rate }}</td>
+              <td>{{ record.spo2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info mt-4">
+      You have not submitted any vitals yet. Click on "Submit Vitals" to get started.
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

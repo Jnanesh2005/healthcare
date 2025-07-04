@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Student Dashboard</h1>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <h1>Welcome {{ user.username }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+<a href="{% url 'submit_vitals' %}">Submit Vitals</a>
+    </form>
+
+    {% if status %}
+        <h2>{{ status }}</h2>
+    {% endif %}
+</body>
+</html>

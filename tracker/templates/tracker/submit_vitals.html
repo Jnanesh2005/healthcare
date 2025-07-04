@@ -1,0 +1,23 @@
+{% extends "tracker/base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Submit Vitals</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="heart_rate">Heart Rate (bpm):</label>
+        <input type="number" name="heart_rate" id="heart_rate" required><br><br>
+
+        <label for="spo2">SpO₂ (%):</label>
+        <input type="number" name="spo2" id="spo2" required><br><br>
+
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" name="temperature" id="temperature" step="0.1" required><br><br>
+
+        <label for="breaths_per_minute">Respiratory Rate (breaths/min):</label>
+        <input type="number" name="breaths_per_minute" id="breaths_per_minute" required><br><br>
+
+        <button type="submit">Submit Vitals</button>
+    </form>
+</div>
+{% endblock %}
