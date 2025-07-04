@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: healthmoniter
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn healthsite.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: healthsite.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: healthcare-db
+          property: connectionString
+
+databases:
+  - name: healthcare-db
