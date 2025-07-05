@@ -16,10 +16,6 @@ services:
         fromDatabase:
           name: healthcare-db
           property: connectionString
-      - key: EMAIL_HOST_USER
-        value: medteknie@gmail.com
-      - key: EMAIL_HOST_PASSWORD
-        value: your_gmail_app_password
 
 databases:
   - name: healthcare-db
